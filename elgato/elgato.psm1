@@ -41,14 +41,24 @@ function Set-ElgatoKeyLight {
     , [switch] $On
     )
 
+    $Lights = @{
+        On = $On ? 1 : 0
+    }
+
+    # Add brightness to body if specified, otherwise omit from body
+    if ($Brightness) {
+        $Lights.Brightness = $Brightness
+    }
+
+    # Add color temperature if specified, otherwise omit from body
+    if ($Temperature) {
+        $Lights.Temperature = 1000000 / $Temperature -as [int] 
+    }
+
     $Body = @{
         NumberOfLights = 1
         Lights = @(
-            @{
-                Brightness = $Brightness
-                Temperature = 1000000 / $Temperature -as [int] 
-                On = $On ? 1 : 0
-            }
+            $Lights
         )
     } | ConvertTo-Json
 
