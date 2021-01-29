@@ -8,6 +8,7 @@
     Copyright = '2020 Trevor Sullivan'
     Description = 'Provides a PowerShell-friendly interface to manage Elgato devices, such as the Key Light Air.'
     FunctionsToExport = @(  'Get-ElgatoKeyLight',
+                            'Get-ElgatoDevice',
                             'Set-ElgatoKeyLight',
                             'Start-ElgatoKeyLight',
                             'Stop-ElgatoKeyLight'
