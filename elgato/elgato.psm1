@@ -177,3 +177,32 @@ function Stop-ElgatoKeyLight {
     }
     
 }
+
+function Get-ElgatoDevice {
+<#
+    .Synopsis
+    Gets information about an Elgato device that's connected to the local network. Will return information such as product name, firmware version and supported features
+
+    .Parameter Hostname
+    DNS Hostname or IP address of the target device, supports multiple objects
+
+    .Example
+    Get the current Elgato device settings
+
+    PS > Get-ElgatoDevice -Host 10.0.0.231
+
+    .Example
+    Get the current Elgato device settings of both devices
+
+    PS > Get-ElgatoDevice -Host 10.0.0.231, 10.0.0.232
+#>
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [string[]] $Hostname
+    )
+
+    $HostName | ForEach-Object {
+        Invoke-RestMethod -Method Get -Uri http://$_`:9123/elgato/accessory-info
+    }
+}
