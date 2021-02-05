@@ -168,10 +168,9 @@ function Stop-ElgatoKeyLight {
             }
         )
     } | ConvertTo-Json
-  
 
     $HostName | ForEach-Object {
-      Invoke-RestMethod -Method Put -Uri http://$_`:9123/elgato/lights -Body $Body
+        Invoke-RestMethod -Method Put -Uri http://$_`:9123/elgato/lights -Body $Body
     }
     
 }
@@ -264,3 +263,21 @@ function Invoke-IdentifyElgatoLight {
             Invoke-RestMethod -Method Post -Uri http://$_`:9123/elgato/lights/indentify
         }
     }
+
+
+# Change startup settings
+put    /elgato/lights/settings
+{
+    "colorChangeDurationMs": 100,
+    "powerOnBehavior": 1,
+    "powerOnBrightness": 20,
+    "powerOnTemperature": 212,
+    "switchOffDurationMs": 300,
+    "switchOnDurationMs": 100
+}
+
+# Set name
+put    http://192.168.178.188:9123/elgato/accessory-info
+{
+    "displayName": "Elgato Key Light Air A216Left"
+}
